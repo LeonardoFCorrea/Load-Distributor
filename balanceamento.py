@@ -21,11 +21,20 @@ def least_response_time():
         destinos.sort(key=lambda destino: destinos_tempo_resposta.get(destino, 0))
         yield destinos[0]
 
+def chained_failover():
+    current_index = 0
+
+    while True:
+        yield destinos[current_index]
+        current_index = (current_index + 1) % len(destinos)
+
 def main(method):
     if method == "round-robin":
         dest_selector = round_robin()
     elif method == "least-response-time":
         dest_selector = least_response_time()
+    elif method == "chained-failover":
+        dest_selector = chained_failover()
     else:
         raise ValueError("Método de balanceamento de carga desconhecido")
 
@@ -59,7 +68,21 @@ def main(method):
         client_socket.close()
 
 if __name__ == "__main__":
-    # Escolha o método de balanceamento de carga desejado aqui ("round-robin" ou "least-response-time")
-    metodo_balanceamento = "round-robin"  
+    print("Escolha o método de balanceamento de carga:")
+    print("1. Round Robin")
+    print("2. Least Response Time")
+    print("3. Chained Failover")
+
+    escolha = input("Digite o número do método desejado: ")
+
+    if escolha == "1":
+        metodo_balanceamento = "round-robin"
+    elif escolha == "2":
+        metodo_balanceamento = "least-response-time"
+    elif escolha == "3":
+        metodo_balanceamento = "chained-failover"
+    else:
+        print("Método de balanceamento de carga inválido.")
+        sys.exit(1)
 
     main(metodo_balanceamento)
