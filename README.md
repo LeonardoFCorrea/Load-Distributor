@@ -6,7 +6,7 @@ O código do cliente é responsável por se comunicar com servidores e realizar 
 
 * Round Robin (Rodízio): Neste método, o cliente escolhe aleatoriamente um dos servidores disponíveis para enviar a solicitação. A cada solicitação, um servidor diferente é escolhido. Isso garante que as solicitações sejam distribuídas igualmente entre os servidores.
 
-* Least Response Time (Menor Tempo de Resposta): Aqui, o cliente mede o tempo de resposta de cada servidor disponível. Ele escolhe o servidor com o menor tempo de resposta para enviar a solicitação. Isso ajuda a direcionar as solicitações para o servidor mais rápido.
+* Measure Response Time (Menor Tempo de Resposta): Aqui, o cliente mede o tempo de resposta de cada servidor disponível. Ele escolhe o servidor com o menor tempo de resposta para enviar a solicitação. Isso ajuda a direcionar as solicitações para o servidor mais rápido.
 
 * Chained Failover (Falha Encadeada): Neste método, o cliente tenta se conectar a cada servidor na lista. Se a conexão falhar, ele tenta o próximo servidor. Quando uma conexão bem-sucedida é estabelecida, a solicitação é enviada. Isso é útil quando você deseja uma abordagem de failover, na qual os servidores são usados na ordem até que um funcione.
 
