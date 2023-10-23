@@ -3,7 +3,7 @@ import time
 import random
 
 
-vm_addresses = [("192.168.1.210", 3003), ("192.168.1.192", 3003)] # IPs dos servidores
+vm_addresses = [("IP SERVIDOR 1", "TIRAR ASPAS - PORTA"), ("IP SERVIDOR 2", "TIRAR ASPAS - PORTA")] # IPs dos servidores
 
 
 # Função para o algoritmo Round Robin
