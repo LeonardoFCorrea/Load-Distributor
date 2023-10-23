@@ -1,4 +1,4 @@
-# Load-Distributor
+# Guia Técnico para o Load-Distributor
 
 ## Cliente:
 
