@@ -19,8 +19,8 @@ data = s.recv(1024)
 print(f"Round Robin Received from {address[0]}: {data.decode()}")
 
 
-# Função para o algoritmo Least Response Time
-def least_response_time_client():
+# Função para o algoritmo Measure Response Time
+def measure_response_time_client():
 while True:
 response_times = [measure_response_time(addr) for addr in vm_addresses]
 min_response_time_index = response_times.index(min(response_times))
@@ -29,9 +29,9 @@ address = vm_addresses[min_response_time_index]
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 s.connect(address)
-s.send(b"Least Response Time Request")
+s.send(b"Measure Response Time Request")
 data = s.recv(1024)
-print(f"Least Response Time Received from {address[0]}: {data.decode()}")
+print(f"Measure Response Time Received from {address[0]}: {data.decode()}")
 
 
 # Função para o algoritmo Chained Failover
@@ -62,13 +62,13 @@ return end_time - start_time
 
 
 if __name__ == "__main__":
-algorithm_choice = input("Escolha o algoritmo (1 para Round Robin, 2 para Least Response Time, 3 para Chained Failover): ")
+algorithm_choice = input("Escolha o algoritmo (1 para Round Robin, 2 para Measure Response Time, 3 para Chained Failover): ")
 
 
 if algorithm_choice == "1":
 round_robin_client()
 elif algorithm_choice == "2":
-least_response_time_client()
+measure_response_time_client()
 elif algorithm_choice == "3":
 chained_failover_client()
 else:
