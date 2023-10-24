@@ -1,27 +1,54 @@
-# Load-Distributor
+# Guia Técnico para o Load-Distributor
 
-## Load Balancer with Dynamic Algorithms
-This GitHub repository hosts a project that implements a load distributor using three dynamic load balancing algorithms: Round Robin, Chained Failover, and Measure Response Time.
+## Cliente:
 
-### Round Robin
-The Round Robin algorithm evenly distributes incoming requests among a group of servers. It ensures fair utilization of resources but doesn't consider the server's capacity or load.
+O código do cliente é responsável por se comunicar com servidores e realizar três tipos de distribuição de carga: Round Robin (Rodízio), Least Response Time (Menor Tempo de Resposta) e Chained Failover (Falha Encadeada).
 
-### Chained Failover
-This algorithm forwards requests to the first available server in a list. If that server fails, the request is routed to the next server in the list. It is primarily used for high availability and fault tolerance.
+* Round Robin (Rodízio): Neste método, o cliente escolhe aleatoriamente um dos servidores disponíveis para enviar a solicitação. A cada solicitação, um servidor diferente é escolhido. Isso garante que as solicitações sejam distribuídas igualmente entre os servidores.
 
-### Measure Response Time
-The Measure Response Time algorithm directs requests to the server with the shortest response time, measured from the request's dispatch to the receipt of the response. This helps distribute the load based on the actual performance of the servers.
+* Measure Response Time (Menor Tempo de Resposta): Aqui, o cliente mede o tempo de resposta de cada servidor disponível. Ele escolhe o servidor com o menor tempo de resposta para enviar a solicitação. Isso ajuda a direcionar as solicitações para o servidor mais rápido.
 
-## Descrição em Português:
+* Chained Failover (Falha Encadeada): Neste método, o cliente tenta se conectar a cada servidor na lista. Se a conexão falhar, ele tenta o próximo servidor. Quando uma conexão bem-sucedida é estabelecida, a solicitação é enviada. Isso é útil quando você deseja uma abordagem de failover, na qual os servidores são usados na ordem até que um funcione.
 
-## Balanceador de Carga com Algoritmos Dinâmicos
-Este repositório no GitHub hospeda um projeto que implementa um distribuidor de carga usando três algoritmos dinâmicos de balanceamento de carga: Round Robin, Chained Failover e Measure Response Time.
+## Servidores:
 
-### Round Robin
-O algoritmo Round Robin distribui de forma equitativa as solicitações de entrada entre um grupo de servidores. Ele garante a utilização justa dos recursos, mas não considera a capacidade ou carga do servidor.
+Os códigos dos servidores representam os servidores que respondem às solicitações do cliente. Cada servidor possui um endereço IP e uma porta específica na qual ele "escuta" as solicitações do cliente. Os servidores respondem com uma mensagem "Response from Server X", onde X representa o número do servidor.
 
-### Chained Failover
-Este algoritmo encaminha solicitações para o primeiro servidor disponível em uma lista. Se esse servidor falhar, a solicitação é encaminhada para o próximo servidor da lista. É usado principalmente para alta disponibilidade e tolerância a falhas.
+* Server 1: Este é o primeiro servidor com o endereço IP definido e a porta especificada. Ele está configurado para responder a solicitações do cliente e mostrar uma mensagem quando uma solicitação é recebida.
 
-### Measure Response Time
-O algoritmo Measure Response Time direciona solicitações para o servidor com o menor tempo de resposta, medido a partir do envio da solicitação até a recepção da resposta. Isso ajuda a distribuir a carga de acordo com o desempenho real dos servidores.
+* Server 2: Este é o segundo servidor com o endereço IP definido e a porta especificada. Assim como o Server 1, ele também está configurado para responder a solicitações do cliente e mostrar uma mensagem quando uma solicitação é recebida.
+
+## Requisitos:
+
+* Duas máquinas, uma para o cliente e duas para os servidores.
+* Python instalado nas máquinas.
+
+## Passo 1: Configuração dos IPs e Portas:
+
+Abra o código do cliente e defina os IPs e portas dos servidores. Substitua "IP SERVIDOR 1" e "IP SERVIDOR 2" pelas informações reais dos servidores. Certifique-se de que as portas estão disponíveis e podem ser usadas.
+Faça o mesmo nos códigos dos servidores, substituindo "IP DO SERVIDOR 1" e "IP DO SERVIDOR 2" pelos endereços IP corretos.
+
+## Passo 2: Executando os Servidores:
+
+Nas máquinas que atuarão como servidores, abra os códigos "server1.py" e "server2.py" com Python. Isso iniciará os servidores que aguardarão as solicitações do cliente.
+Certifique-se de que as portas especificadas nos servidores correspondam às portas definidas no cliente.
+## Passo 3: Executando o Cliente:
+
+Na máquina que atuará como cliente, execute o código do cliente, "client.py", com Python.
+O cliente permitirá que você escolha entre três algoritmos de distribuição de carga: Round Robin (1), Least Response Time (2) e Chained Failover (3).
+
+## Passo 4: Escolhendo um Algoritmo:
+
+Digite o número correspondente ao algoritmo que deseja testar e pressione "Enter". O cliente começará a enviar solicitações aos servidores com base no algoritmo escolhido.
+
+## Passo 5: Observando a Distribuição de Carga:
+
+Os servidores responderão às solicitações do cliente e mostrarão mensagens indicando que receberam as solicitações.
+No cliente, você verá as respostas dos servidores, indicando de qual servidor a resposta foi recebida.
+
+Observações:
+
+* Certifique-se de que as máquinas com endereços IP de servidor possam ser acessadas a partir de computadores clientes. 
+* Você pode executar os algoritmos quantas vezes quiser, escolhendo diferentes algoritmos para ver como a distribuição de carga é afetada.
+* Este guia técnico fornece uma visão geral de como configurar e usar código para testar algoritmos de balanceamento de carga. Certifique-se de compreender as configurações de IP e porta e a seleção do algoritmo para obter resultados precisos.
+
