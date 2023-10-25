@@ -20,7 +20,7 @@ print(f"Round Robin Received from {address[0]}: {data.decode()}")
 
 
 # Função para o algoritmo Measure Response Time
-def measure_response_time_client():
+def least_response_time_client():
 while True:
 response_times = [measure_response_time(addr) for addr in vm_addresses]
 min_response_time_index = response_times.index(min(response_times))
@@ -68,7 +68,7 @@ algorithm_choice = input("Escolha o algoritmo (1 para Round Robin, 2 para Measur
 if algorithm_choice == "1":
 round_robin_client()
 elif algorithm_choice == "2":
-measure_response_time_client()
+least_response_time_client()
 elif algorithm_choice == "3":
 chained_failover_client()
 else:
