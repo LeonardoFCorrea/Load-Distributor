@@ -20,7 +20,7 @@ Os códigos dos servidores representam os servidores que respondem às solicita�
 
 ## Requisitos:
 
-* Duas máquinas, uma para o cliente e duas para os servidores.
+* Três máquinas, uma para o cliente e duas para os servidores.
 * Python instalado nas máquinas.
 
 ## Passo 1: Configuração dos IPs e Portas:
