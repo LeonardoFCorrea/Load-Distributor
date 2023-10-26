@@ -26,7 +26,7 @@ class MetricsLogger:
         separator_line = "-" * 300 
         log_file.write(separator_line + '\n')
 
-vm_addresses = [("192.168.100.18", 3000), ("192.168.100.20", 3000)]
+vm_addresses = [("ENDEREÇO IP", "TIRE AS ASPAS - PORTA"), ("ENDEREÇO IP", "TIRE AS ASPAS - PORTA")]
 
 def measure_response_time(vm_address, request):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
