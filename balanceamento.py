@@ -15,7 +15,7 @@ class MetricsLogger:
             resource_usage = round(resource_usage, 2)
             latency = round(latency, 2)
             
-            metric = f"{category}: {algorithm_name}, Endereco: {address[0]}, Tempo Inicial: {start_time}, Tempo Final: {end_time}, Uso de Recursos: {resource_usage}, Latencia: {latency}"
+            metric = "{}: {}, Endereco: {}, Tempo Inicial: {}, Tempo Final: {}, Uso de Recursos: {}, Latencia: {}".format(category, algorithm_name, address[0], start_time, end_time, resource_usage, latency)
             log_file.write(metric + '\n')
             self.log_count += 1
             if self.log_count % 10 == 0:
@@ -26,7 +26,7 @@ class MetricsLogger:
         separator_line = "-" * 300 
         log_file.write(separator_line + '\n')
 
-vm_addresses = [("192.168.100.18", 3000), ("192.168.100.20", 3000)]
+vm_addresses = [("ENDEREÇO IP", "TIRE AS ASPAS - PORTA"), ("ENDEREÇO IP", "TIRE AS ASPAS - PORTA")]
 
 def measure_response_time(vm_address, request):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -44,9 +44,9 @@ def round_robin_client(log_file, metrics_logger):
         start_time, end_time = measure_response_time(address, request)
         resource_usage = random.uniform(0, 1)
         latency = random.uniform(0, 0.5)
-        category = algorithm_categories["Round Robin"]
+        category = "Metrica 1"  # Categoria para Round Robin
         metrics_logger.log_metric(log_file, category, "Round Robin", address, start_time, end_time, resource_usage, latency)
-        print(f"Round Robin Received from {address[0]}")
+        print("Round Robin Received from {}".format(address[0]))
 
 def least_response_time_client(log_file, metrics_logger):
     while metrics_logger.log_count < metrics_logger.max_logs:  
@@ -61,9 +61,9 @@ def least_response_time_client(log_file, metrics_logger):
         start_time, end_time = measure_response_time(address, "Least Response Time Request")
         resource_usage = random.uniform(0, 1) 
         latency = random.uniform(0, 0.5)  
-        category = algorithm_categories["Least Response Time"]
+        category = "Metrica 2"  # Categoria para Least Response Time
         metrics_logger.log_metric(log_file, category, "Least Response Time", address, start_time, end_time, resource_usage, latency)
-        print(f"Least Response Time Received from {address[0]}")
+        print("Least Response Time Received from {}".format(address[0]))
 
 def chained_failover_client(log_file, metrics_logger):
     while metrics_logger.log_count < metrics_logger.max_logs:  
@@ -77,22 +77,15 @@ def chained_failover_client(log_file, metrics_logger):
                 start_time, end_time = measure_response_time(address, request)
                 resource_usage = random.uniform(0, 1)  
                 latency = random.uniform(0, 0.5)  
-                category = algorithm_categories["Chained Failover"]
+                category = "Metrica 3"  # Categoria para Chained Failover
                 metrics_logger.log_metric(log_file, category, "Chained Failover", address, start_time, end_time, resource_usage, latency)
-                print(f"Chained Failover Received from {address[0]}")
+                print("Chained Failover Received from {}".format(address[0]))
                 break  
             except Exception as e:
-                print(f"Failed to connect to {address[0]}: {e}")
+                print("Failed to connect to {}: {}".format(address[0], e))
                 continue
 
-
 if __name__ == "__main__":
-    algorithm_categories = {
-        "Round Robin": "Metrica 1",
-        "Least Response Time": "Metrica 2",
-        "Chained Failover": "Metrica 3"
-    }
-
     log_file_name = "load_distributor_metrics.txt"
 
     with open(log_file_name, "a") as log_file:
